@@ -2,6 +2,7 @@
   "name": "web3_payment_gateway",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://satishpethani92.github.io/web3_payment_gateway/",
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@reduxjs/toolkit": "^1.9.5",
@@ -16,6 +17,7 @@
     "@web3modal/react": "2.6.2",
     "bootstrap": "^5.3.0",
     "dotenv-expand": "^10.0.0",
+    "gh-pages": "^5.0.0",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
@@ -32,6 +34,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b main -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
