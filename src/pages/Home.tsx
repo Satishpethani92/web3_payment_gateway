@@ -10,13 +10,18 @@ const Home = () => {
   const [accountAdd, setAccountAdd] = useState("");
   const [chainId, setChainId] = useState("1");
   const [amount, setAmount] = useState("");
-  const [currentChain, setCurrentChain] = useState<chains.Chain>(chains.mainnet);
+  const [currentChain, setCurrentChain] = useState<chains.Chain>(
+    chains.mainnet
+  );
 
   const allChains = Object.values(chains);
 
   const generateQRCode = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const finalAmount = Number(amount) * Number(10) ** Number(currentChain.nativeCurrency.decimals) + "";
+    const finalAmount =
+      Number(amount) *
+        Number(10) ** Number(currentChain.nativeCurrency.decimals) +
+      "";
     console.log(finalAmount, amount, currentChain.nativeCurrency.decimals);
     const finalString = `ethereum:${accountAdd}@${chainId}?value=${finalAmount}`;
     setQRString(finalString);
@@ -24,11 +29,21 @@ const Home = () => {
 
   return (
     <div className="d-flex align-items-center flex-column justify-content-center h-100">
-      <div className="p-4 rounded-3 bg-secondary bg-opacity-50 mb-4" style={{ width: "30rem" }}>
+      <div
+        className="p-4 rounded-3 bg-secondary bg-opacity-50 mb-4"
+        style={{ width: "30rem" }}
+      >
         <Form onSubmit={(e) => generateQRCode(e)}>
           <Form.Group controlId="account-address" className="mb-2">
-            <Form.Label>Account Address:</Form.Label>
-            <Form.Control name="address" type="text" value={accountAdd} onChange={(e) => setAccountAdd(e.target.value)} />
+            <Form.Label className="labelText">Account Address:</Form.Label>
+            <Form.Control
+              name="address"
+              type="text"
+              className="textInput"
+              value={accountAdd}
+              placeholder="0xD9B5542056dasdlas4464r646w64r89r7w878a"
+              onChange={(e) => setAccountAdd(e.target.value)}
+            />
           </Form.Group>
           <Form.Group controlId="chainId" className="mb-2">
             <Form.Label>Chain Id:</Form.Label>
@@ -37,7 +52,10 @@ const Home = () => {
               value={chainId}
               onChange={(e) => {
                 setChainId(e.target.value);
-                setCurrentChain(allChains.find((ele) => ele.id === Number(e.target.value)) || chains.mainnet);
+                setCurrentChain(
+                  allChains.find((ele) => ele.id === Number(e.target.value)) ||
+                    chains.mainnet
+                );
               }}
             >
               {allChains.map((e, index) => (
@@ -48,10 +66,20 @@ const Home = () => {
             </Form.Select>
           </Form.Group>
           <Form.Group controlId="amount" className="mb-2">
-            <Form.Label>Amount in ${currentChain.nativeCurrency.symbol}:</Form.Label>
-            <Form.Control name="amount" type="text" value={amount} onChange={(e) => setAmount(e.target.value)} />
+            <Form.Label>
+              Amount in ${currentChain.nativeCurrency.symbol}:
+            </Form.Label>
+            <Form.Control
+              name="amount"
+              type="text"
+              value={amount}
+              placeholder="10"
+              onChange={(e) => setAmount(e.target.value)}
+            />
           </Form.Group>
-          <button className="btn btn-primary mt-3 text-center">Generate QRCode</button>
+          <button className="btn btn-primary mt-3 text-center">
+            Generate QRCode
+          </button>
         </Form>
       </div>
       {QRString && <QRCode value={QRString} />}
